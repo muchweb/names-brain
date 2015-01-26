@@ -10,3 +10,7 @@ $(LIBS): $(COFFEE) $(SOURCES)
 
 $(COFFEE):
 	npm install
+
+clean:
+	rm -r lib
+	rm -r node_modules
