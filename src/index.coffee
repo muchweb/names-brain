@@ -1,6 +1,4 @@
 LineByLineReader = require 'line-by-line'
-brain = require 'brain'
-probabilities = {}
 
 class LetterMap
 
@@ -8,15 +6,17 @@ class LetterMap
 		@[key] = option for key, option of options
 		@map.sort (a, b) -> b[1] - a[1]
 
+	GetSum: ->
+		return @sum if @sum?
+		@sum = @map.reduce (prev, cur) ->
+			prev += cur[1]
+		, 0
+		return @sum
+
 	GetProbableLetter: ->
 		return null if @map.length is 0
 
-		unless @sum?
-			@sum = @map.reduce (prev, cur) ->
-				prev += cur[1]
-			, 0
-
-		rand = Math.floor (Math.random() * @sum) + 1
+		rand = Math.floor (Math.random() * @GetSum()) + 1
 		index = 0
 		while rand > 0
 			letter = @map[index]
@@ -53,6 +53,7 @@ class LetterMap
 
 	@MapFromFile: (path, callback) ->
 		lr = new LineByLineReader path
+		probabilities = {}
 
 		lr.on 'error', (err) ->
 			return callback err
@@ -76,6 +77,13 @@ class LetterMap
 					key: key
 					map: set_major
 			callback null, probabilities_array
+
+	@ShowStatisticalMap: (probabilities_array) ->
+		arr = probabilities_array.map (outer) ->
+			arr = outer.map.map (inner) ->
+				"#{inner[0]}=#{Math.round inner[1] / outer.GetSum() * 100}%"
+			"#{outer.key}: #{arr.join ', '}"
+		console.log "#{arr.join '\n'}"
 
 LetterMap.MapFromFile 'names-male.txt', (error, probabilities_array) ->
 	console.log '-- male --'
