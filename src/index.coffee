@@ -8,10 +8,16 @@ lr.on 'error', (err) ->
 
 lr.on 'line', (line) ->
 	list = line.split ''
-	for index in [0..(list.length-2)]
-		map.push
-			input: list[index]
-			output: list[index+1]
+	# for index in [0..(list.length-2)]
+	for index in [0..1]
+		input = {}
+		output = {}
+		input["#{list[index]}"] = 1
+		output["#{list[index+1]}"] = 1
+		if map.length < 20
+			map.push
+				input: input
+				output: output
 
 	# 'line' contains the current line without the trailing newline character.
 
