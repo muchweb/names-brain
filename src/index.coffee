@@ -1,30 +1,25 @@
 LineByLineReader = require 'line-by-line'
 brain = require 'brain'
 lr = new LineByLineReader 'names-male.txt'
-map = []
+probabilities = {}
 
 lr.on 'error', (err) ->
 	# 'err' contains error object
 
 lr.on 'line', (line) ->
 	list = line.split ''
-	# for index in [0..(list.length-2)]
-	for index in [0..1]
-		input = {}
-		output = {}
-		input["#{list[index]}"] = 1
-		output["#{list[index+1]}"] = 1
-		if map.length < 20
-			map.push
-				input: input
-				output: output
-
-	# 'line' contains the current line without the trailing newline character.
+	for index in [0..(list.length-2)]
+		a = "#{list[index]}"
+		b = "#{list[index+1]}"
+		probabilities[a] = {} unless probabilities[a]?
+		probabilities[a][b] = 0 unless probabilities[a][b]?
+		probabilities[a][b]++
 
 lr.on 'end', ->
-	net = new brain.NeuralNetwork
-	console.log map
-	net.train map
-	console.log net.run 'J'
-
-	# All lines are read, file is closed now.
+	probabilities_array = []
+	for key, major of probabilities
+		set_major = []
+		for letter, count of major
+			set_major.push [letter, count]
+		set_major.sort (a, b) -> b[1] - a[1]
+		probabilities_array.push [key, set_major]
