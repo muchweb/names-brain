@@ -3,6 +3,9 @@ brain = require 'brain'
 lr = new LineByLineReader 'names-male.txt'
 probabilities = {}
 
+Array.prototype.RandomElement = () ->
+	@[Math.floor(Math.random()*@.length)]
+
 lr.on 'error', (err) ->
 	# 'err' contains error object
 
@@ -23,3 +26,19 @@ lr.on 'end', ->
 			set_major.push [letter, count]
 		set_major.sort (a, b) -> b[1] - a[1]
 		probabilities_array.push [key, set_major]
+
+	start_element = probabilities_array.RandomElement()
+	letter = start_element[0]
+
+	name = ''
+	dead_end = false
+	while name.length < Math.ceil(Math.random() * 10) + 4
+		name += letter
+		found = probabilities_array.filter (item) -> item[0] is letter
+		if found.length is 0
+			dead_end = true
+			break
+		found = found[0]
+		letter = found[1][0][0]
+	console.log name
+	console.log 'Dead end reached' if dead_end
