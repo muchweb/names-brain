@@ -6,14 +6,17 @@ class LetterMap
 
 	constructor: (options={}) ->
 		@[key] = option for key, option of options
+		@map.sort (a, b) -> b[1] - a[1]
 
 	GetProbableLetter: ->
 		return null if @map.length is 0
 
-		sum = @map.reduce (prev, cur) ->
-			prev += cur[1]
-		, 0
-		rand = Math.floor (Math.random() * sum) + 1
+		unless @sum?
+			@sum = @map.reduce (prev, cur) ->
+				prev += cur[1]
+			, 0
+
+		rand = Math.floor (Math.random() * @sum) + 1
 		index = 0
 		while rand > 0
 			letter = @map[index]
@@ -69,7 +72,6 @@ class LetterMap
 				set_major = []
 				for letter, count of major
 					set_major.push [letter, count]
-				set_major.sort (a, b) -> b[1] - a[1]
 				probabilities_array.push new LetterMap
 					key: key
 					map: set_major
