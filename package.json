@@ -1,0 +1,17 @@
+{
+  "name": "names-brain",
+  "version": "0.0.0",
+  "description": "Names brain",
+  "main": "lib/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "GPLv3+",
+  "dependencies": {
+    "brain": "^0.7.0"
+  },
+  "devDependencies": {
+    "coffee-script": "^1.8.0"
+  }
+}
