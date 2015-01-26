@@ -1,5 +1,27 @@
 # Names brain
 
+Some of random generated male names:
+
+```text
+Ckeothib
+Ledarva
+Selamadwilis
+Sthann
+Sanrrydydeum
+Dyleuiannlie
+Osedext
+Hijarobeyai
+Jukie
+Selleroryac
+Yarereli
+Iosedioryda
+Yamankienjeyl
+Innllahanyd
+Velillijellud
+Waamommet
+Tharexarckerde
+```
+
 Male name probability map:
 
 ```text
@@ -28,7 +50,18 @@ B: E=33%, Y=17%, R=17%, A=8%, L=8%, O=8%, B=8%
 Y: L=50%, D=25%, A=25%
 K: E=50%, I=33%, A=17%
 Z: A=100%
+```
 
+## Installation
+
+```bash
+make
+```
+
+## Usage
+
+```bash
+node .
 ```
 
 ## Credits

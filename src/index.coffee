@@ -92,6 +92,18 @@ LetterMap.MapFromFile 'names-male.txt', (error, probabilities_array) ->
 	console.log (LetterMap.Generate probabilities_array).name
 	console.log (LetterMap.Generate probabilities_array).name
 	console.log (LetterMap.Generate probabilities_array).name
+	console.log (LetterMap.Generate probabilities_array).name
+	console.log (LetterMap.Generate probabilities_array).name
+	console.log (LetterMap.Generate probabilities_array).name
+	console.log (LetterMap.Generate probabilities_array).name
+	console.log (LetterMap.Generate probabilities_array).name
+	console.log (LetterMap.Generate probabilities_array).name
+	console.log (LetterMap.Generate probabilities_array).name
+	console.log (LetterMap.Generate probabilities_array).name
+	console.log (LetterMap.Generate probabilities_array).name
+	console.log (LetterMap.Generate probabilities_array).name
+	console.log (LetterMap.Generate probabilities_array).name
+	console.log (LetterMap.Generate probabilities_array).name
 
 	LetterMap.MapFromFile 'names-female.txt', (error, probabilities_array) ->
 		console.log '-- female --'
