@@ -3,6 +3,11 @@ brain = require 'brain'
 lr = new LineByLineReader 'names-male.txt'
 probabilities = {}
 
+class LetterMap
+	constructor: (options={}) ->
+		@[key] = option for key, option of options
+
+
 Array.prototype.RandomElement = () ->
 	@[Math.floor(Math.random()*@.length)]
 
@@ -25,20 +30,23 @@ lr.on 'end', ->
 		for letter, count of major
 			set_major.push [letter, count]
 		set_major.sort (a, b) -> b[1] - a[1]
-		probabilities_array.push [key, set_major]
+		probabilities_array.push new LetterMap
+			key: key
+			map: set_major
 
-	start_element = probabilities_array.RandomElement()
-	letter = start_element[0]
-
+	element = probabilities_array.RandomElement()
 	name = ''
 	dead_end = false
 	while name.length < Math.ceil(Math.random() * 10) + 4
-		name += letter
-		found = probabilities_array.filter (item) -> item[0] is letter
-		if found.length is 0
+		name += element.key
+		element = element.map.RandomElement()
+		elements = probabilities_array.filter (item) ->
+			element[0] is item.key
+
+		if elements.length is 0
 			dead_end = true
 			break
-		found = found[0]
-		letter = found[1][0][0]
+		element = elements[0]
+		
 	console.log name
 	console.log 'Dead end reached' if dead_end
